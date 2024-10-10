@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: nugrahaddict
+      POSTGRES_PASSWORD: P@ssw0rd123
+      POSTGRES_DB: crud_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: nugrahaddict
+      DB_PASS: P@ssw0rd123
+      DB_NAME: crud_db
+
+volumes:
+  pgdata:
